@@ -1,0 +1,32 @@
+{% if site.enable_statcounter_analytics and site.statcounter.project and site.statcounter.security %}
+  <!-- Statcounter Analytics -->
+  <script
+    {% if site.enable_cookie_consent %}
+      type="text/plain" data-category="analytics"
+    {% endif %}
+  >
+    var sc_project = {{ site.statcounter.project }};
+    var sc_invisible = {{ site.statcounter.invisible | default: 1 }};
+    var sc_security = "{{ site.statcounter.security }}";
+    var sc_client_storage = "disabled";
+  </script>
+  <script
+    {% if site.enable_cookie_consent %}
+      type="text/plain" data-category="analytics"
+    {% endif %}
+    async
+    src="https://statcounter.com/counter/counter.js"
+  ></script>
+  <noscript>
+    <div class="statcounter">
+      <a title="Web Analytics" href="https://statcounter.com/" target="_blank" rel="noopener noreferrer">
+        <img
+          class="statcounter"
+          src="https://c.statcounter.com/{{ site.statcounter.project }}/0/{{ site.statcounter.security }}/1/"
+          alt="Web Analytics"
+          referrerpolicy="no-referrer-when-downgrade"
+        >
+      </a>
+    </div>
+  </noscript>
+{% endif %}

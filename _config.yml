@@ -66,6 +66,11 @@ og_image:
 google_analytics: # replace with G-XXXXXXXXXX once you have a GA4 property
 google_site_verification:
 bing_site_verification:
+enable_statcounter_analytics: true
+statcounter:
+  project: 13332364
+  security: 3d6cb103
+  invisible: 1
 
 # -----------------------------------------------------------------------------
 # Blog

@@ -236,6 +236,8 @@
     src="{{ '/assets/js/cronitor-analytics-setup.js' | relative_url }}"
   ></script>
 {% endif %}
+
+{% include statcounter.liquid %}
 {% if site.enable_pirsch_analytics %}
   <script
     {% if site.enable_cookie_consent %}

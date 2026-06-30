@@ -299,6 +299,8 @@
   ></script>
 {% endif %}
 
+{% include statcounter.liquid %}
+
 {% if site.enable_progressbar %}
   <!-- Scrolling Progress Bar -->
   <script defer src="{{ '/assets/js/progress-bar.js' | relative_url | bust_file_cache }}" type="text/javascript"></script>

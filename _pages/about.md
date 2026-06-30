@@ -12,7 +12,6 @@ profile:
 
 selected_papers: false
 social: false
-visitor_map: true
 
 announcements:
   enabled: true
