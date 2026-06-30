@@ -130,14 +130,6 @@ latest_posts:
   scrollable: true
   limit: 3
 
-visitor_map:
-  enabled: true
-  provider: badge
-  badge_image_url: https://komarev.com/ghpvc/?username=Mohannadcse&label=visitors&color=79C83D&style=flat
-  badge_link_url: https://komarev.com/ghpvc/?username=Mohannadcse
-  embed_script_url:
-  page_url:
-
 # -----------------------------------------------------------------------------
 # Jekyll settings
 # -----------------------------------------------------------------------------
