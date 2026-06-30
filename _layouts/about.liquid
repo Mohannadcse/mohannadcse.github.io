@@ -79,9 +79,25 @@ layout: default
 
     {% if page.visitor_map %}
       <hr>
-      <h2>Visitor Map</h2>
+      <h2>Visitors</h2>
       <div style="text-align: center; margin: 2em 0;">
-        <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=iclEtVUX8m-ul5vDQ2y0MWM68rFwlSlB9nIykxXdnl4&cl=ffffff&w=a"></script>
+        {% if site.visitor_map.enabled and site.visitor_map.badge_image_url %}
+          <a href="{{ site.visitor_map.badge_link_url | default: site.url }}" target="_blank" rel="noopener noreferrer">
+            <img
+              src="{{ site.visitor_map.badge_image_url }}"
+              alt="Visitor counter"
+            >
+          </a>
+        {% elsif site.visitor_map.enabled and site.visitor_map.embed_script_url %}
+          <script type="text/javascript" id="visitor-map" src="{{ site.visitor_map.embed_script_url }}"></script>
+        {% elsif site.visitor_map.enabled and site.visitor_map.page_url %}
+          <p>
+            Visitor map is available here:
+            <a href="{{ site.visitor_map.page_url }}" target="_blank" rel="noopener noreferrer">Open visitor map</a>
+          </p>
+        {% else %}
+          <p>Visitor map is temporarily unavailable.</p>
+        {% endif %}
       </div>
     {% endif %}
   </article>
