@@ -74,7 +74,7 @@ statcounter:
 
 visitor_map:
   enabled: true
-  worker_base:
+  worker_base: https://mohannadcse-visitor-map.netlify.app
   collect_path: /visitor-map/collect
   points_path: /visitor-map/points
   breakpoint: 925

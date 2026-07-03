@@ -1,4 +1,4 @@
-const { getStore } = require("@netlify/blobs");
+const { connectLambda, getStore } = require("@netlify/blobs");
 
 const STORE_NAME = "visitor-map";
 const KEY = "points-v1";
@@ -84,6 +84,7 @@ exports.handler = async (event) => {
   }
 
   const route = routeOf(event.path);
+  connectLambda(event);
   const store = getStore(STORE_NAME);
 
   if (route === "points") {
