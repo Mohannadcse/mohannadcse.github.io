@@ -78,6 +78,72 @@ ul.task-list input[type="checkbox"] {
   margin-right: 1rem;
 }
 
+.visitor-map-sidebar-home {
+  margin-top: 0.65rem;
+}
+
+.visitor-map-wrap {
+  width: 100%;
+  min-height: 130px;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 0.4rem;
+  background: var(--global-card-bg-color);
+  overflow: hidden;
+}
+
+.visitor-map-canvas {
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  min-height: 130px;
+}
+
+.map-mobile-section {
+  display: none;
+  margin-top: 1rem;
+}
+
+.map-mobile-title {
+  margin-bottom: 0.5rem;
+}
+
+.jvm-tooltip {
+  border-radius: 0.4rem;
+  border: 1px solid var(--global-divider-color);
+  background: var(--global-card-bg-color);
+  color: var(--global-text-color);
+  box-shadow: 0 6px 20px rgb(0 0 0 / 12%);
+}
+
+.visitor-map-wrap .jvm-zoom-btn {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 0.2rem;
+  background: color-mix(in srgb, var(--global-card-bg-color) 92%, #fff 8%);
+  color: var(--global-text-color);
+  line-height: 18px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.visitor-map-wrap .jvm-zoom-btn:hover {
+  background: color-mix(in srgb, var(--global-theme-color) 18%, var(--global-card-bg-color) 82%);
+}
+
+.visitor-map-wrap .jvm-marker {
+  cursor: pointer;
+}
+
+@media (max-width: 925px) {
+  .visitor-map-wrap {
+    max-width: 100%;
+  }
+
+  .map-mobile-section {
+    display: block;
+  }
+}
+
 @media (min-width: 576px) {
   .profile {
     width: 30%;

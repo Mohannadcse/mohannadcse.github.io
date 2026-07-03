@@ -22,6 +22,8 @@ latest_posts:
   enabled: true
   scrollable: true
   limit: 3
+
+visitor_map: true
 ---
 
 I am a software security researcher and entrepreneur. My research interests primarily revolve around **AI and Software Supply Chain Security**. I integrate program analysis, large language models (LLMs), and cybersecurity techniques to evaluate and enhance application safety and security across emerging domains, including Android, IoT, AI/LLM ecosystems, and software supply chains.

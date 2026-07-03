@@ -1,0 +1,13 @@
+[build]
+  publish = "_site"
+  command = "bundle exec jekyll build"
+
+[[redirects]]
+  from = "/visitor-map/collect"
+  to = "/.netlify/functions/visitor-map/collect"
+  status = 200
+
+[[redirects]]
+  from = "/visitor-map/points"
+  to = "/.netlify/functions/visitor-map/points"
+  status = 200

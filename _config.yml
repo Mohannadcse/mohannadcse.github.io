@@ -72,6 +72,13 @@ statcounter:
   security: 3d6cb103
   invisible: 1
 
+visitor_map:
+  enabled: true
+  worker_base:
+  collect_path: /visitor-map/collect
+  points_path: /visitor-map/points
+  breakpoint: 925
+
 # -----------------------------------------------------------------------------
 # Blog
 # -----------------------------------------------------------------------------
@@ -152,6 +159,8 @@ exclude:
   - CLAUDE.md
   - README.md
   - requirements.txt
+  - netlify/
+  - netlify.toml
 
 keep_files:
   - .git

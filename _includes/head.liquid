@@ -103,6 +103,10 @@
   >
 {% endif %}
 
+{% if page.visitor_map and site.visitor_map and site.visitor_map.enabled %}
+  <link defer rel="stylesheet" href="{{ '/assets/vendor/jsvectormap/jsvectormap.min.css' | relative_url | bust_file_cache }}">
+{% endif %}
+
 {% if page.code_diff %}
   <!-- diff2html -->
   <link

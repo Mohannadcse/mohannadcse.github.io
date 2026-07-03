@@ -103,6 +103,20 @@
   <script defer src="{{ '/assets/js/calendar-setup.js' | relative_url | bust_file_cache }}" type="text/javascript"></script>
 {% endif %}
 
+{% if page.visitor_map and site.visitor_map and site.visitor_map.enabled %}
+  <script>
+    window.__visitorMapConfig = {
+      workerBase: "{{ site.visitor_map.worker_base }}",
+      collectPath: "{{ site.visitor_map.collect_path | default: '/collect' }}",
+      pointsPath: "{{ site.visitor_map.points_path | default: '/points' }}",
+      breakpoint: {{ site.visitor_map.breakpoint | default: 925 }},
+      vectorLibUrl: "{{ '/assets/vendor/jsvectormap/jsvectormap.min.js' | relative_url | bust_file_cache }}",
+      worldMapUrl: "{{ '/assets/vendor/jsvectormap/world.js' | relative_url | bust_file_cache }}"
+    };
+  </script>
+  <script defer src="{{ '/assets/js/visitor-map.js' | relative_url | bust_file_cache }}" type="text/javascript"></script>
+{% endif %}
+
 {% if page.chart and page.chart.plotly %}
   <!-- Plotly -->
   <script
