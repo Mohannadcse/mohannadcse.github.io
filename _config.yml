@@ -72,6 +72,7 @@ statcounter:
   security: 3d6cb103
   invisible: 1
 
+# Visitor map backend used by the homepage map.
 visitor_map:
   enabled: true
   worker_base: https://mohannadcse-visitor-map.netlify.app
