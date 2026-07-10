@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "The Agent That Was Never Called: How a Framework Migration Silently Rewired DepsRAG's Topology"
+title: "The Bug That Behaved Perfectly: Why Agentic Apps Are So Hard to Debug"
 date: 2026-07-10
-description: Migrating a multi-agent app between frameworks can silently change its topology. DepsRAG kept working correctly after moving from Langroid to Agno—while one of its agents was never invoked at all.
+description: A framework migration left DepsRAG with a redundant orchestrator that was never invoked—yet every answer stayed correct. When a bug produces no symptoms, debugging needs to look at structure, not just behavior.
 tags: [agentic-ai, multi-agent, debugging, agno, langroid, DepsRAG]
 categories: agentic-ai
 related_posts: false
@@ -10,8 +10,7 @@ related_posts: false
 
 ### TL;DR
 
-After migrating DepsRAG from Langroid to Agno, the system behaved exactly as expected—every answer was correct. Yet one of its agents, the AssistantAgent that was supposed to orchestrate the whole workflow, was never invoked at all. Agno's `Team` construct creates an implicit coordinator by default, making the ported AssistantAgent redundant. Runtime testing couldn't catch this because Agno injects each member's role into the coordinator's prompt, so the coordinator absorbed the AssistantAgent's orchestration instructions and preserved the expected behavior. We caught the redundancy only when a pre-deployment analysis tool we are developing visualized the app's actual topology. This post walks through the bug, why it was behaviorally invisible, and what it says about debugging agentic applications.
-
+This is the story of a bug that behaved perfectly. After we migrated DepsRAG from Langroid to Agno, the AssistantAgent—the agent designed to orchestrate the entire workflow—was never invoked, yet every answer stayed correct: Agno's `Team` construct provides an implicit coordinator that absorbed the AssistantAgent's orchestration instructions through its prompt, making the agent redundant without breaking anything. Traditional debugging tools have little to offer here—breakpoints, stack traces, and tests all assume a symptom to chase, and this defect produced none. Agentic applications need a new kind of debugging tooling: one that understands the semantics of the underlying framework and verifies the application's *structure* before deployment, not just its behavior at runtime. That is how we caught this bug—with a pre-deployment analysis tool we are developing that visualized DepsRAG's actual topology; the fix is now merged in DepsRAG.
 {: .notice--info}
 
 ## Introduction
@@ -29,7 +28,16 @@ DepsRAG was originally built on [Langroid](https://github.com/langroid/langroid)
 - **SearchAgent**: performs web searches and vulnerability lookups.
 - **CriticAgent**: reviews every answer before it reaches the user.
 
-In Langroid, the AssistantAgent is load-bearing. Remove it and nothing coordinates the workers—the app simply doesn't function.
+In Langroid, this hierarchy is spelled out in code. The AssistantAgent's task owns the workers as sub-tasks, and running the app means running the AssistantAgent:
+
+```python
+assistant_task = lr.Task(assistant_agent, ...)
+...
+assistant_task.add_sub_task([dependency_task, search_task, critic_task])
+assistant_task.run(question)
+```
+
+The AssistantAgent is load-bearing. Remove it and nothing coordinates the workers—the app simply doesn't function.
 
 ## The Migration to Agno
 
@@ -90,7 +98,7 @@ A dead agent and a correct system. That combination is what makes this bug inter
 
 ## Why the Bug Was Invisible
 
-The answer is in how Agno assembles the coordinator's prompt. When a `Team` runs in `coordinate` mode, the team leader's system message embeds a description of every member—including each member's `role`—so the leader knows who to delegate to:
+The answer is in how Agno assembles the coordinator's prompt. When a `Team` runs in `coordinate` mode (Agno 2.5), the team leader's system message embeds a description of every member—including each member's `role`—so the leader knows who to delegate to:
 
 ```python
 # agno/team/_messages.py (abridged)
@@ -103,7 +111,11 @@ if member.description is not None:
 
 Recall what the AssistantAgent's `role` contained: the *entire orchestration workflow*—validate graph creation before proceeding, decompose complex questions, always route answers through the CriticAgent. All of that text was injected verbatim into the implicit coordinator's system prompt as a member description.
 
-So the coordinator read a member profile that spelled out, step by step, how to orchestrate this team—and simply executed that workflow itself. Delegating to the AssistantAgent was never a rational choice from the coordinator's perspective: the member had no tools, and its stated job was the one the coordinator was already doing. The framework's prompt-assembly mechanics quietly transferred the dead agent's responsibilities to the component that made it dead.
+So the coordinator read a member profile that spelled out, step by step, how to orchestrate this team—and simply executed that workflow itself. Agno even licenses this choice explicitly; the leader's system prompt opens with:
+
+> "You coordinate a team of specialized AI agents to fulfill the user's request. Delegate to members when their expertise or tools are needed. For straightforward requests you can handle directly — including using your own tools — respond without delegating."
+
+From the coordinator's perspective, delegating to the AssistantAgent was never a rational choice: the member had no tools, and its stated job was the one the coordinator was already doing—and permitted to keep doing. The framework's prompt-assembly mechanics quietly transferred the dead agent's responsibilities to the component that made it dead.
 
 This is why every behavioral test passed. The orchestration *logic* survived the migration perfectly. Only the orchestration *structure* didn't—and none of our testing observed structure.
 
@@ -118,10 +130,10 @@ team = Team(
     members=[dependency_agent, search_agent, critic],
     mode=TeamMode.coordinate,
     instructions=[
-        "Delegate dependency graph creation to DependencyGraphAgent, then verify the response indicates success before any follow-up analysis.",
-        "Route web and vulnerability questions to SearchAgent.",
-        "Break complex user requests into clear, self-contained subtasks for delegated members.",
-        "Before responding to the user, ALWAYS delegate to CriticAgent for validation.",
+        "Delegate graph creation to DependencyGraphAgent, then verify success",
+        "Route web and vulnerability questions to SearchAgent",
+        "Break complex user requests into clear, self-contained subtasks",
+        "Before responding to the user, ALWAYS delegate to CriticAgent",
         ...
     ],
 )
@@ -131,7 +143,7 @@ Behavior is unchanged—which is the point. The code now says what the system wa
 
 One might ask: if behavior was correct, why fix it at all? Because a redundant agent is not free:
 
-- **Token and latency overhead.** The AssistantAgent's ~50-line role was injected into the coordinator's system prompt on every single run, for an agent that contributed nothing.
+- **Token and latency overhead.** The AssistantAgent's full 30-line role was injected into the coordinator's system prompt on every single run, for an agent that contributed nothing.
 - **Misleading architecture.** Anyone reading the code—or debugging an incident—would reason about a delegation path that doesn't exist. The comment `# Assistant coordinates member agents` was actively false.
 - **Fragile correctness.** The system worked because of an undocumented prompt-assembly detail. An Agno update that changed how member roles are shared with the leader could have silently dropped the orchestration logic—graph validation, critic review—with no code change on our side.
 - **A larger surface.** Every agent in a topology is a delegation target the coordinator *may* choose. A dead agent that could occasionally come alive under unusual prompts is a reliability and security liability, not a neutral bystander.
@@ -142,16 +154,17 @@ Stepping back, three things about this bug generalize well beyond DepsRAG.
 
 **Framework migrations are not 1:1 mappings.** Agentic frameworks disagree on a fundamental design question: is orchestration something you *build* (Langroid's explicit orchestrator agent) or something you *get* (Agno's implicit team coordinator)? A migration that maps agent-to-agent without mapping *orchestration model to orchestration model* will produce exactly this kind of structural bug. The same trap exists in other directions—porting to frameworks with graph-based control flow, supervisor patterns, or handoff semantics each redraws the topology in ways the agent definitions alone don't reveal.
 
-**Behavioral testing cannot catch structural bugs that preserve behavior.** Our test suite validated answers, not delegation paths. It had no way to fail—the answers were right. Bugs like this need *structural* verification: does the topology the code implies match the topology the framework will actually execute? That question must be answered before deployment, because after deployment there is no symptom to chase.
+**Traditional debugging has no entry point for symptomless bugs.** Debuggers, stack traces, and test suites are built for defects that manifest—a wrong value, an exception, a failing assertion. Our test suite validated answers, not delegation paths, so it had no way to fail: the answers were right. And in an agentic app, the control flow a debugger would step through is not in your code at all—it emerges from prompts the framework assembles and from an LLM's delegation decisions at runtime. Bugs like this need a different kind of tooling: *structural* verification that asks, before deployment, whether the topology the code implies matches the topology the framework will actually execute. After deployment, there is no symptom to chase.
 
 **Topology extraction must understand framework semantics.** The redundancy was only visible because the analysis knew that Agno's `Team(mode=coordinate)` spawns an implicit coordinator and that member roles are folded into its prompt. A framework-agnostic view of the code—four agents, some tools—looks perfectly reasonable. It is the framework's runtime semantics that turn the design into a bug, so it is framework semantics that pre-deployment analysis has to model. This is precisely the gap the pre-deployment verification tool we are building aims to close, and DepsRAG has become one of its first real case studies.
 
 ## Takeaways
 
-- When adopting a multi-agent framework, identify what orchestration it provides *implicitly* before porting your explicit orchestration onto it.
-- Correct output is weak evidence of correct structure. Trace which agents actually run; an agent with zero invocations is either dead code or a latent liability.
-- Prompt-assembly mechanics (what each agent sees about the others) can mask design bugs by redistributing responsibilities at runtime. Know what your framework injects where.
-- Visualize the *effective* topology—framework constructs included—not the topology your code appears to declare. The gap between the two is where this class of bugs lives.
+If you maintain a multi-agent application, three concrete practices follow from this experience:
+
+- **Before migrating, write down the target framework's implicit orchestration.** List what its team/graph/supervisor constructs already do—coordination, routing, synthesis—then decide which of your agents still need to exist. Map orchestration model to orchestration model, not agent to agent.
+- **Alert on zero-invocation agents.** Track per-agent invocation counts in your traces and treat a permanently idle agent like dead code in a coverage report: either remove it or explain it.
+- **Inspect the prompts your framework assembles, not just the ones you write.** What each agent is told about the others determines where responsibilities actually land at runtime.
 
 ---
 
@@ -159,12 +172,12 @@ Stepping back, three things about this bug generalize well beyond DepsRAG.
 
 [1] Mohannad Alhanahnah and Yazan Boshmaf. "DepsRAG: Towards Agentic Reasoning and Planning for Software Dependency Management." *NeurIPS 2024 Workshop on Open-World Agents*, 2024.
 
-[2] DepsRAG repository. https://github.com/Mohannadcse/DepsRAG
+[2] [DepsRAG repository](https://github.com/Mohannadcse/DepsRAG).
 
-[3] Langroid: Multi-Agent Programming Framework. https://github.com/langroid/langroid
+[3] [Langroid: Multi-Agent Programming Framework](https://github.com/langroid/langroid).
 
-[4] Agno: Framework for Building Multi-Agent Systems. https://github.com/agno-agi/agno
+[4] [Agno: Framework for Building Multi-Agent Systems](https://github.com/agno-agi/agno).
 
-[5] DepsRAG PR #9: Migrate DepsRAG from Langroid to Agno. https://github.com/Mohannadcse/DepsRAG/pull/9
+[5] [DepsRAG PR #9: Migrate DepsRAG from Langroid to Agno](https://github.com/Mohannadcse/DepsRAG/pull/9).
 
-[6] DepsRAG PR #21: Refactor team orchestration and remove unused AssistantAgent path. https://github.com/Mohannadcse/DepsRAG/pull/21
+[6] [DepsRAG PR #21: Refactor team orchestration and remove unused AssistantAgent path](https://github.com/Mohannadcse/DepsRAG/pull/21).
