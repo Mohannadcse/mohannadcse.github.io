@@ -11,9 +11,6 @@ related_posts: false
 ### TL;DR
 
 A subtle normalization mismatch inside an SBOM tool can break dependency relationships even when all packages are detected correctly. When edges between components silently disappear, downstream processes like vulnerability scanning and VEX reasoning become unreliable. This post walks through how such an issue surfaced in Syft, why it happened, and why small normalization inconsistencies pose a serious risk to supply chain security. The Syft team was very responsive and fixed the bug immediately.
-
-
-A subtle normalization mismatch inside an SBOM tool can break dependency relationships even when all packages are detected correctly. When edges between components silently disappear, downstream processes like vulnerability scanning and VEX reasoning become unreliable. This post walks through how such an issue surfaced in Syft, why it happened, and why small normalization inconsistencies pose a serious risk to supply chain security. The Syft team was very responsive and fixed the bug immediately.
 {: .notice--info}
 
 ## Introduction

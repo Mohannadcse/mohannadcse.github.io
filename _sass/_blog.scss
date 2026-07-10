@@ -165,3 +165,10 @@
     }
   }
 }
+
+.notice--info {
+  background-color: color-mix(in srgb, var(--global-theme-color) 10%, var(--global-bg-color));
+  border-left: 4px solid var(--global-theme-color);
+  border-radius: 4px;
+  padding: 1rem 1.25rem;
+}

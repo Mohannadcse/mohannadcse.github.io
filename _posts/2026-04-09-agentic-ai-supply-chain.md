@@ -11,7 +11,6 @@ related_posts: false
 ### TL;DR
 
 Agentic AI systems introduce supply chain risks that traditional security tools cannot address. Autonomous agents with persistent memory, runtime tool selection, and agent-to-agent communication create dynamic dependency graphs that change during execution. This post examines threat sources (T1-T5), key security challenges, and directions forward including DepsRAG for dependency validation, Context Bill of Materials (CBOM) for runtime dependency tracking, and multi-level benchmarking frameworks.
-
 {: .notice--info}
 
 ## Introduction
