@@ -59,12 +59,5 @@ My work extends beyond academic publications to real-world impact. I have secure
   <p style="font-size: 0.85em; color: #888; margin-top: 0.5em;"><em>Research Impact at a Glance</em></p>
 </div>
 
-<div style="text-align: center; margin: 2em 0;">
-  <img src="assets/img/research-impact.png"
-       alt="Innovation journey"
-       style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
-  <p style="font-size: 0.85em; color: #888; margin-top: 0.5em;"><em>Innovation Journey: From idea to real-world impact</em></p>
-</div>
-
 [→ More on my research contributions and impact](impact/)
 
