@@ -66,3 +66,5 @@ My work extends beyond academic publications to real-world impact. I have secure
   <p style="font-size: 0.85em; color: #888; margin-top: 0.5em;"><em>Innovation Journey: From idea to real-world impact</em></p>
 </div>
 
+[→ More on my research contributions and impact](impact/)
+
