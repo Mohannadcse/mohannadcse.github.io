@@ -9,6 +9,19 @@ nav_order: 4
 
 Beyond publications, my research has contributed to real-world systems, testbeds, and technology transfer. This page highlights selected contributions and the impact they have had.
 
+## From Idea to Real-World Impact
+
+My software debloating research started as an idea with no use case or commercialization plans. It grew into a publication at [EuroS&P'22](https://ieeexplore.ieee.org/abstract/document/9797349), a US patent filed through WARF, the [FitStack](https://www.fitstack.dev) startup ($500k in commercialization funding), and the LMCAS prototype [transferred to the Office of Naval Research](https://github.com/siftech/lmcas) — together representing about $1M in funding and technology transfer.
+
+<div style="text-align: center; margin: 2em 0;">
+  <img src="{{ '/assets/img/research-impact.png' | relative_url }}"
+       alt="Innovation journey"
+       style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+  <p style="font-size: 0.85em; color: #888; margin-top: 0.5em;"><em>Innovation Journey: From idea to real-world impact</em></p>
+</div>
+
+---
+
 ## IoT Security Testbed — iTrust, SUTD
 
 As a Research Assistant at [iTrust](https://itrust.sutd.edu.sg), the Center for Research in Cyber Security at the Singapore University of Technology and Design (SUTD), I contributed to building an **automated security testbed for IoT devices**. The testbed supports security testing such as penetration testing and detection of compromised IoT devices, and realistically simulates environmental conditions (e.g., location, light, and motion) to uncover context-based attacks against smart wearables and other connected devices.
