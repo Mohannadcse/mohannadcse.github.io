@@ -30,7 +30,7 @@ As a Research Assistant at [iTrust](https://itrust.sutd.edu.sg), the Center for 
   <img src="{{ '/assets/img/iot-testbed-team.jpg' | relative_url }}"
        alt="The iTrust research team in front of the IoT security testbed"
        style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
-  <p style="font-size: 0.85em; color: #888; margin-top: 0.5em;"><em>The research team posing in front of the IoT testbed (left to right): Kandasamy Murugandadam (IoT lab engineer), Suman Sankar Bhunia (RA), Vinay Sachidananda (RF), Priscilla Pang (Project Manager), Nils Tippenhauer (Co-PI, SUTD), Yuval Elovici (iTrust Research Director and PI), Shachar Siboni (PhD Student, BGU), Asaf Shabtai (Collaborator, BGU), Chandra Sekar (RA), Toh Jing Hui (RA), <strong>Mohannad Alhanahnah (RA)</strong> and joined by Ivan Lee (SAD, CST) and Aditya Mathur (iTrust Centre Director).</em></p>
+  <p style="font-size: 0.85em; color: #888; margin-top: 0.5em;"><em>The research team posing in front of the IoT testbed.</em></p>
 </div>
 
 This work was featured in the iTrust Times newsletter: [Research & Security Innovation Lab for IoT — iTrust Times, Issue 5 (PDF)]({{ '/assets/pdf/iTrust-newsletter-issue-5.pdf' | relative_url }}) (see the Research Updates section, page 5).
