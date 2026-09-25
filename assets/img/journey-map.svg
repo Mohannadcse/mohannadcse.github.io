@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2200 1180" role="img" aria-label="Map of the eleven places where Mohannad Alhanahnah has lived, studied, and worked, numbered in chronological order from Saudi Arabia to Qatar.">
 <title>My Journey</title>
-<desc>Ten stops in chronological order: 1. Saudi Arabia; 2. Amman, Jordan; 3. Saudi Arabia; 4. Canterbury, UK; 5. Birmingham, UK; 6. Eindhoven, Netherlands; 7. Singapore; 8. Lincoln, Nebraska, USA; 9. Madison, Wisconsin, USA; 10. Gothenburg, Sweden; 11. Doha, Qatar.</desc>
+<desc>Eleven stops in chronological order: 1. Saudi Arabia; 2. Amman, Jordan; 3. Saudi Arabia; 4. Canterbury, UK; 5. Birmingham, UK; 6. Eindhoven, Netherlands; 7. Singapore; 8. Lincoln, Nebraska, USA; 9. Madison, Wisconsin, USA; 10. Gothenburg, Sweden; 11. Doha, Qatar.</desc>
 <defs>
 <clipPath id="map-band"><rect x="0" y="0" width="2200" height="860"/></clipPath>
 <clipPath id="flag-clip"><rect x="0" y="0" width="36" height="27" rx="3" ry="3"/></clipPath>
@@ -357,7 +357,6 @@
 <text x="1620" y="562" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="27" font-weight="600" fill="#1b7d9a" paint-order="stroke" stroke="#FFFFFF" stroke-width="6" stroke-linejoin="round">Today</text>
 <text x="72" y="86" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="64" font-weight="700" letter-spacing="-0.5" fill="#1A1D21">My Journey</text>
 <rect x="72" y="102" width="150" height="6" rx="3" fill="url(#accent)"/>
-<text x="72" y="148" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="34" font-weight="400" fill="#6B7280">Eleven stops in chronological order</text>
 <line x1="72" y1="878" x2="2128" y2="878" stroke="#E5E7EB" stroke-width="1"/>
 <circle cx="94" cy="912" r="21" fill="none" stroke="#2698ba" stroke-width="2"/>
 <circle cx="94" cy="912" r="16" fill="#b509ac"/>
