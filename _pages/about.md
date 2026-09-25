@@ -34,6 +34,12 @@ I completed my PhD in Computer Engineering at the **University of Nebraska-Linco
 
 My work extends beyond academic publications to real-world impact. I have secured over **$1.5M in research and commercialization funding**, co-founded a startup ([FitStack](https://www.fitstack.dev)), had tools accepted for **[tech transfer by ONR](https://github.com/siftech/lmcas)**, hold **two issued patents**, and contributed to open-source projects such as [Langroid](https://github.com/langroid/langroid). I also found bugs in open-source tools [Syft](https://github.com/anchore/syft/issues/4401).
 
+<div style="text-align: center; margin: 2em 0;">
+  <img src="assets/img/journey-map.svg"
+       alt="World map of the ten places where I have lived, studied, and worked, in chronological order from Saudi Arabia to Qatar"
+       style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+</div>
+
 ---
 
 ## Research Areas
