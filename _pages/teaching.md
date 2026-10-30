@@ -28,6 +28,7 @@ nav_order: 6
 
 - [*Cross-Language Dependency Analysis for VS Code Extension Ecosystem*](https://odr.chalmers.se/items/af71f883-ccd3-4ccc-a77b-a2c4aa37830a) — Alexander Brunnegård and Malte Carlstedt, MSc thesis, 2025 (supervisor)
 - [*Assessing the Energy Impact of Java Software Debloating Tools*](https://odr.chalmers.se/items/05fa50f8-7d03-446d-9959-ec589a01280b) — Martin Engström, MSc thesis, 2025 (co-supervisor)
+- *Software Update Resilience in IoT* — Jakob Alzeinab and William Carlsson, MSc thesis (co-supervisor)
 - [*Managing Code Evolution: Refactoring Challenges in Kattis' Code Judge*](https://odr.chalmers.se/items/df102e4a-6c62-4f83-9dd8-8c812aea9019) — Joshua Andersson, Alexander Gilabert, Rasmus Hulthe, and Hugo Söderbergh, BSc thesis, 2025 (supervisor)
 - [*Security Analysis of Code Bloat in Machine Learning Systems*](https://odr.chalmers.se/items/579918ff-8a04-4c06-af55-39904c56ab2f) — Fahmi Abdulqadir Ahmed and Dyako Fatih, MSc thesis, 2022 (mentor)
 - [*Debloating Machine Learning Systems*](https://odr.chalmers.se/items/da5ceb73-660a-41ed-b565-5a749f9be155) — Mihkel Sildnik and Yan Wang, MSc thesis, 2021 (mentor)
